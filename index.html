@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WhatsApp Numbers to Excel</title>
+    <style>
+
+        *{
+            font-family: sans-serif;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body
+        {
+            width: 100vw;
+            height: 100vh;
+            background: #a3a1ff; background: -moz-linear-gradient(to right,  #a3a1ff 0%,#3a3897 100%); background: -webkit-linear-gradient(to right,  #a3a1ff 0%,#3a3897 100%); background: linear-gradient(to right,  #a3a1ff 0%,#3a3897 100%);
+        }
+
+        .container
+        {
+            width: 900px;
+            color: #fff;
+            padding: 30px 40px;
+            border: 1px solid #ffffff8b ;
+            border-radius: 10px;
+            backdrop-filter: blur(3px);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+
+            position: relative;
+            top: 50%; left: 50%;
+            transform: translate(-50%,-50%);
+
+            background-color: rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        textarea
+        {
+            width: 100%;
+            height: 200px;
+            resize: vertical;
+            background: #ffffff47;
+            outline: none;
+            color: #fff;
+            font-size: 18px;
+            margin: 20px 0;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        textarea::placeholder
+        {
+            color: #ffffffbe;
+
+        }
+
+
+        button
+        {
+            background: #0b609c;
+            color: #fff;
+            border: none;
+            font-size: 18px;
+            padding: 15px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            float: right;
+        }
+
+        button:hover
+        {
+            box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+            background-color: #084a79;
+        }
+
+        button img
+        {
+            width: 35px;
+            margin-bottom: -7px;
+            padding-right: 5px;
+        }
+    </style>
+</head>
+<body>
+        <div class="container">
+            <h1>WhatsApp Numbers to Excel</h1>
+    
+            <form id="numbersForm">
+                <textarea id="numbers" rows="4" cols="50" placeholder="Paste WhatsApp Number's Here" required></textarea><br>
+                <button type="submit"> <img src="./csv.png" alt=""> Export to Excel</button>
+            </form>
+        </div>
+
+    <script>
+        function exportToExcel() {
+            const numbersInput = document.getElementById('numbers');
+            const numbers = numbersInput.value.split(',');
+
+            const csvContent = "data:text/csv;charset=utf-8," + numbers.map(number => ['"' + number.trim() + '"']).join('\n');
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "whatsapp_numbers.csv");
+            document.body.appendChild(link); // Required for Firefox
+            link.click();
+        }
+
+        const form = document.getElementById('numbersForm');
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            exportToExcel();
+        });
+    </script>
+</body>
+</html>
