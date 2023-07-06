@@ -118,6 +118,7 @@
             link.setAttribute("download", groupname);
             document.body.appendChild(link); // Required for Firefox
             link.click();
+            window.location.href=window.location.href;  // Reset the form after exporting 
         }
 
         const form = document.getElementById('numbersForm');
